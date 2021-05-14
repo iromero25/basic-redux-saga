@@ -1,6 +1,5 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-
 const outputPath = path.resolve(__dirname, "dist");
 
 const config = {
@@ -16,23 +15,6 @@ const config = {
       },
     ],
   },
-};
-
-// CAREFUL!  `Object.assign` takes  an empty object as first param to create a
-// new object. If the `config` object were  specied instead,  we'd be mutating
-// it, and thus not achieving what we want (separate client and server configs)
-const serverConfig = Object.assign({}, config, {
-  // this is the reason why we have separate configs: as per official webpack
-  // docs, targets cannot be mixed (e.g.: [web,node]) so we separate them.
-  target: "node", // means the output bundle's target is a node backend
-  entry: "./src/server.ts",
-  output: {
-    path: outputPath,
-    filename: "server.js",
-  },
-});
-
-const clientConfig = Object.assign({}, config, {
   devtool: "eval-source-map",
   entry: "./src/index.tsx",
   output: {
@@ -45,6 +27,6 @@ const clientConfig = Object.assign({}, config, {
       filename: "index.html",
     }),
   ],
-});
+};
 
-module.exports = [serverConfig, clientConfig];
+module.exports = config;

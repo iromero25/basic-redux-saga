@@ -1,0 +1,22 @@
+{
+  "notes": [
+    {
+      "id": 1,
+      "title": "Supermarket",
+      "content": "Don't forget to go to the supermarket and buy some fruit",
+      "tag": "priority"
+    },
+    {
+      "id": 2,
+      "title": "Cleaning",
+      "content": "We have to do vacuum the floor",
+      "tag": "archived"
+    },
+    {
+      "id": 3,
+      "title": "Cooking",
+      "content": "We might want to cook some salmon for tonight",
+      "tag": "normal"
+    }
+  ]
+}

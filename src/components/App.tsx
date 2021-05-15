@@ -4,7 +4,7 @@ import AllNotes from "./AllNotes";
 
 const App = () => (
   <>
-    <h1>React Redux Notes App</h1>
+    <h1>React Redux Notes App (with Sagas)</h1>
     <NoteForm />
     <hr />
     <AllNotes />

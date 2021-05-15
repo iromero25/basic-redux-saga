@@ -1,4 +1,4 @@
-import { FILTER_NOTE, FilterNoteAction, TagValues } from "../actions/actions";
+import { FILTER_NOTE, FilterNoteAction, TagValues } from "../actions";
 
 // A reducer cares about a specific part of the state (visibility in this case).
 // Even if we setup an initialState when creating a store, if we fail to set a

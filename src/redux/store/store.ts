@@ -1,38 +1,28 @@
-import { combineReducers, createStore } from "redux";
+import { combineReducers, createStore, applyMiddleware } from "redux";
+import createSagaMiddleware from "redux-saga";
+
 import notesReducer from "../reducers/notesReducer";
 import visibilityReducer from "../reducers/visibilityReducer";
-import { TagValues } from "../actions/actions";
+import { loadingReducer } from "../reducers/loadingReducer";
+import rootSaga from "../sagas";
 
-// export interface Store {
-//   notes: Note[];
-//   visibility: TagValues;
-// }
+export type Store = ReturnType<typeof rootReducer>;
 
 const rootReducer = combineReducers({
   notes: notesReducer,
   visibility: visibilityReducer,
+  loading: loadingReducer,
 });
 
-export type Store = ReturnType<typeof rootReducer>;
+const initialState = undefined;
+const sagaMiddleware = createSagaMiddleware();
 
-const initialState: Store = {
-  notes: [
-    {
-      id: 1,
-      title: "You are awesome",
-      content: "No, wait, I meant legendary!",
-      tag: TagValues.normal,
-    },
-    {
-      id: 2,
-      title: "Ooops",
-      content: "I was talking to myself",
-      tag: TagValues.normal,
-    },
-  ],
-  // this is why `undefined` needs to  be  specified  as
-  // part of the return types for the `visibilityReducer`
-  visibility: undefined,
-};
+const store = createStore(
+  rootReducer,
+  {},
+  applyMiddleware(sagaMiddleware)
+);
 
-export default createStore(rootReducer, initialState);
+sagaMiddleware.run(rootSaga); // Run redux-saga
+
+export default store;

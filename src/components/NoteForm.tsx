@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import { connect, ConnectedProps } from "react-redux";
-import { addNote, TagValues } from "../redux/actions/actions";
+import { addNote, TagValues } from "../redux/actions/actionCreators";
 
 const mapDispatchToProps = {
   addNote,

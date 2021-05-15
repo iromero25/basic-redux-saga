@@ -1,14 +1,13 @@
 import express from "express";
 import jsonServer from "json-server";
 
-var server = express();
+const server = express();
 server.use(express.static("dist"));
 
-// You may want to mount JSON Server on a specific end-point, for example /api
-// Optiona,l except if you want to have JSON Server defaults
-// server.use('/api', jsonServer.defaults());
+// To handle POST, PUT and PATCH you need to use a body-parser
+// You can use the one used by JSON Server
+server.use(jsonServer.bodyParser);
 server.use("/api", jsonServer.router("json-server/db.json"));
-
 server.get("/", (_, res) => {
   res.sendFile("index.html");
 });

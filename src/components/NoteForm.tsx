@@ -1,9 +1,9 @@
 import React, { useState, useRef } from "react";
 import { connect, ConnectedProps } from "react-redux";
-import { addNote, TagValues } from "../redux/actions/actionCreators";
+import { dispatchAddNote, TagValues } from "../redux/actions";
 
 const mapDispatchToProps = {
-  addNote,
+  dispatchAddNote,
 };
 
 // `connect` is a Higher Order Component (Function?). So it returns a  function
@@ -21,7 +21,7 @@ const connector = connect(
 // We can do this:
 type ReduxProps = ConnectedProps<typeof connector>;
 
-const NoteForm: React.FC<ReduxProps> = ({ addNote }) => {
+const NoteForm: React.FC<ReduxProps> = ({ dispatchAddNote }) => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [tag, setTag] = useState<TagValues>(TagValues.normal);
@@ -32,13 +32,11 @@ const NoteForm: React.FC<ReduxProps> = ({ addNote }) => {
   //   preventDefault: () => void;
   // }
 
-  // add the note by dispathcing the `addNote` action (using the addNote
-  // action creator). I believe there's another way to handle this
   const handleSubmission = (
     e: React.FormEvent<HTMLFormElement> /* alternative: e: Event */
   ) => {
     e.preventDefault();
-    addNote(title, content, tag);
+    dispatchAddNote({ title, content, tag });
     setTitle("");
     setContent("");
 

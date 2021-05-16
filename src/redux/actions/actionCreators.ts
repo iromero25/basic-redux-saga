@@ -1,6 +1,7 @@
 import { Action } from "redux";
 import {
   ADD_NOTE,
+  ADD_NOTE_DISPATCH,
   FILTER_NOTE,
   REMOVE_NOTE,
   SET_ALL_NOTES,
@@ -26,7 +27,9 @@ export interface SetAllNotesAction extends Action<typeof SET_ALL_NOTES> {
 }
 
 export interface AddNoteAction extends Action<typeof ADD_NOTE> {
-  payload: Omit<Note, "id">;
+  payload: {
+    note: Note;
+  };
 }
 
 export interface FilterNoteAction extends Action<typeof FILTER_NOTE> {
@@ -39,6 +42,12 @@ export interface RemoveNoteAction extends Action<typeof REMOVE_NOTE> {
 
 export interface SetLoadingAction extends Action<typeof SET_LOADING> {}
 
+export interface DispatchAddNoteAction extends Action<typeof ADD_NOTE_DISPATCH> {
+  payload: {
+    note: Omit<Note, "id">;
+  };
+}
+
 export const setAllNotes = (notes: Note[]): SetAllNotesAction => ({
   type: SET_ALL_NOTES,
   payload: {
@@ -46,16 +55,10 @@ export const setAllNotes = (notes: Note[]): SetAllNotesAction => ({
   },
 });
 
-export const addNote = (
-  title: string,
-  content: string,
-  tag: TagValues
-): AddNoteAction => ({
+export const addNote = (note: Note): AddNoteAction => ({
   type: ADD_NOTE,
   payload: {
-    title,
-    content,
-    tag,
+    note,
   },
 });
 
@@ -73,4 +76,11 @@ export const updateVisibility = (tag: TagValues): FilterNoteAction => ({
 
 export const setLoading = (): SetLoadingAction => ({
   type: SET_LOADING,
+});
+
+// action creators for  actions that are dispatched via
+// `mapDispatchToProps` and that are listed to bu sagas
+export const dispatchAddNote = (note: Omit<Note, "id">): DispatchAddNoteAction => ({
+  type: ADD_NOTE_DISPATCH,
+  payload: { note },
 });

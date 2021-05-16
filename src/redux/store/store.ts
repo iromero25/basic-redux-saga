@@ -14,15 +14,15 @@ const rootReducer = combineReducers({
   loading: loadingReducer,
 });
 
-const initialState = undefined;
+const emptyInitialState = {};
 const sagaMiddleware = createSagaMiddleware();
 
 const store = createStore(
   rootReducer,
-  {},
+  emptyInitialState,
   applyMiddleware(sagaMiddleware)
 );
 
-sagaMiddleware.run(rootSaga); // Run redux-saga
+sagaMiddleware.run(rootSaga);
 
 export default store;

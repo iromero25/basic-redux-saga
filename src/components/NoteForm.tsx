@@ -1,22 +1,27 @@
 import React, { useState, useRef } from "react";
 import { connect, ConnectedProps } from "react-redux";
+import { Store } from "../redux/store/store";
 import { dispatchAddNote, TagValues } from "../redux/actions";
+import { isEmpty } from "lodash";
+import InputMissingError from "./InputMissingError";
+
+const mapStateToProps = (state: Store) => ({
+  loading: state.loading,
+});
 
 const mapDispatchToProps = {
   dispatchAddNote,
 };
 
-const connector = connect(
-  null,
-  mapDispatchToProps
-);
+const connector = connect(mapStateToProps, mapDispatchToProps);
 
 type ReduxProps = ConnectedProps<typeof connector>;
 
-const NoteForm: React.FC<ReduxProps> = ({ dispatchAddNote }) => {
+const NoteForm: React.FC<ReduxProps> = ({ loading, dispatchAddNote }) => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [tag, setTag] = useState<TagValues>(TagValues.normal);
+  const [inputInfoIsMissing, setInputInfoIsMissing] = useState(false);
   const titleRef = useRef<HTMLInputElement>(null);
   const elementWidth = 160;
 
@@ -28,9 +33,14 @@ const NoteForm: React.FC<ReduxProps> = ({ dispatchAddNote }) => {
     e: React.FormEvent<HTMLFormElement> /* alternative: e: Event */
   ) => {
     e.preventDefault();
+    if (isEmpty(title) || isEmpty(content)) {
+      setInputInfoIsMissing(true);
+      return;
+    }
     dispatchAddNote({ title, content, tag });
     setTitle("");
     setContent("");
+    setInputInfoIsMissing(false);
 
     // set focus to the Input DOM element this reference points at
     titleRef.current?.focus();
@@ -50,7 +60,7 @@ const NoteForm: React.FC<ReduxProps> = ({ dispatchAddNote }) => {
           name="title"
           ref={titleRef}
           value={title}
-          style={{ width: elementWidth }}
+          style={{ width: elementWidth, marginBottom: 5 }}
           onChange={e => setTitle(e.target.value)}
         />
         <br />
@@ -58,11 +68,11 @@ const NoteForm: React.FC<ReduxProps> = ({ dispatchAddNote }) => {
         <textarea
           name="content"
           value={content}
-          style={{ width: elementWidth * 1.5, height: 90 }}
+          style={{ width: elementWidth * 1.5, height: 90, marginBottom: 5 }}
           onChange={e => setContent(e.target.value)}
         ></textarea>
         <br />
-        <div>
+        <div style={{marginBottom: -5}}>
           <label htmlFor="tags">Tag:</label>
           <select
             name="tag"
@@ -78,9 +88,14 @@ const NoteForm: React.FC<ReduxProps> = ({ dispatchAddNote }) => {
           </select>
         </div>
         <br />
-        <button type="submit" style={{ marginBottom: 5 }}>
+        <button
+          type="submit"
+          disabled={loading}
+          style={{ marginBottom: 5 }}
+        >
           Add Note
         </button>
+        {inputInfoIsMissing && <InputMissingError />}
       </form>
     </>
   );

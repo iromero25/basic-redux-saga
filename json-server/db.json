@@ -17,12 +17,6 @@
       "content": "We might want to cook some salmon for tonight",
       "tag": "Normal",
       "id": 3
-    },
-    {
-      "title": "Laundry",
-      "content": "Get gotta wash those socks",
-      "tag": "Priority",
-      "id": 4
     }
   ]
 }

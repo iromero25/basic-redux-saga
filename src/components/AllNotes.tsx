@@ -5,6 +5,7 @@ import Note from "./Note";
 import {
   TagValues,
   removeNote,
+  dispatchRemoveNote,
   updateVisibility,
   LOAD_ALL_NOTES,
 } from "../redux/actions";
@@ -24,6 +25,7 @@ const mapDispatchToProps = {
   updateVisibility,
   // **sagas-related**
   setLoading: () => ({ type: LOAD_ALL_NOTES }), // this is a fn returning an Action object (i.e. action creator)
+  dispatchRemoveNote,
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
@@ -39,6 +41,7 @@ const AllNotes: React.FC<ReduxProps> = ({
   setLoading,
   removeNote,
   updateVisibility,
+  dispatchRemoveNote,
 }) => {
   useEffect(() => {
     setLoading();
@@ -60,7 +63,11 @@ const AllNotes: React.FC<ReduxProps> = ({
           <ul>
             {notesToDisplay.map((note, index) => (
               <li key={index} style={{ marginBottom: 8 }}>
-                <Note note={note} removeNote={removeNote} />
+                <Note
+                  note={note}
+                  removeNote={removeNote}
+                  dispatchRemoveNote={dispatchRemoveNote}
+                />
               </li>
             ))}
           </ul>

@@ -14,7 +14,6 @@ server.get("/", (_, res) => {
 
 // Simulate a delay only when requesting data for the api only.
 server.use("/api", (_, __, next) => {
-  console.log("inside api");
   setTimeout(next, 1500);
 });
 

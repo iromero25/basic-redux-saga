@@ -22,3 +22,12 @@ export const addNote = async (note: Omit<Note, "id">) => {
   });
   return response.json();
 };
+
+export const removeNote = async (id: Note["id"]) => {
+  try {
+    const response = await fetch(baseURl + `api/notes/${id}`, { method: "DELETE" });
+    return response.json();
+  } catch (e) {
+    return console.error(e);
+  }
+};

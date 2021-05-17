@@ -1,15 +1,29 @@
 import React from "react";
-import { Note, removeNote } from "../redux/actions";
+import { Note, dispatchRemoveNote, removeNote } from "../redux/actions";
 
 interface Props {
   note: Note;
   removeNote: typeof removeNote;
+  dispatchRemoveNote: typeof dispatchRemoveNote;
 }
 
-const Note: React.FC<Props> = ({note, removeNote}) => (
+const NoteComponent: React.FC<Props> = ({
+  note,
+  removeNote,
+  dispatchRemoveNote,
+}) => (
   <>
     <b>{note.title}</b>
-    <button onClick={() => removeNote(note.id)} style={{ marginLeft: 5 }}>
+    <button
+      onClick={() => {
+        // Optimistic delete! Remove  the note from the store (synchronously) straight
+        // away while also dispatching the asynchronous delete of the note from the db,
+        // hoping the op will be executed successfully at a later time.
+        removeNote(note.id);
+        dispatchRemoveNote(note.id);
+      }}
+      style={{ marginLeft: 5 }}
+    >
       x
     </button>
     <br />
@@ -19,4 +33,4 @@ const Note: React.FC<Props> = ({note, removeNote}) => (
   </>
 );
 
-export default Note;
+export default NoteComponent;

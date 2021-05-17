@@ -1,13 +1,9 @@
 import { put, call, takeEvery } from "redux-saga/effects";
-import {
-  getAllNotes,
-  addNote as addNoteApi,
-  removeNote as removeNoteApi,
-} from "../../api";
+import { getAllNotesAPI, addNoteAPI, removeNoteAPI } from "../../api";
 import {
   ADD_NOTE_DISPATCH,
+  LOAD_NOTES_DISPATCH,
   REMOVE_NOTE_DISPATCH,
-  LOAD_ALL_NOTES,
   addNote,
   setAllNotes,
   setLoading,
@@ -16,10 +12,10 @@ import {
   DispatchRemoveNoteAction,
 } from "../actions";
 
-// remember this is a generator, and it cannot be an arrow function
-function* loadAllNotes() {
+// remember a generator cannot be an arrow function
+function* loadNotesSaga() {
   yield put(setLoading());
-  const storedNotes: Note[] = yield call(getAllNotes);
+  const storedNotes: Note[] = yield call(getAllNotesAPI);
   yield put(setAllNotes(storedNotes));
 }
 
@@ -27,17 +23,17 @@ function* addNoteSaga(action: DispatchAddNoteAction) {
   // can we infer typing this part?
   // check how to type this
   yield put(setLoading());
-  const addedNote: Note = yield call(addNoteApi, action.payload.note);
+  const addedNote: Note = yield call(addNoteAPI, action.payload.note);
   yield put(addNote(addedNote));
 }
 
 function* removeNoteSaga(action: DispatchRemoveNoteAction) {
-  yield call(removeNoteApi, action.payload.id);
+  yield call(removeNoteAPI, action.payload.id);
   console.info("note removal completed");
 }
 
 export default function* allSagas() {
-  yield takeEvery(LOAD_ALL_NOTES, loadAllNotes);
+  yield takeEvery(LOAD_NOTES_DISPATCH, loadNotesSaga);
   yield takeEvery(ADD_NOTE_DISPATCH, addNoteSaga); //check how to type this
   yield takeEvery(REMOVE_NOTE_DISPATCH, removeNoteSaga); // takeLast maybe?
 }

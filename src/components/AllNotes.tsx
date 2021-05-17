@@ -5,9 +5,9 @@ import Note from "./Note";
 import {
   TagValues,
   removeNote,
+  dispatchLoadNotes,
   dispatchRemoveNote,
   updateVisibility,
-  LOAD_ALL_NOTES,
 } from "../redux/actions";
 
 const mapStateToProps = (state: Store) => ({
@@ -23,8 +23,7 @@ const mapStateToProps = (state: Store) => ({
 const mapDispatchToProps = {
   removeNote,
   updateVisibility,
-  // **sagas-related**
-  setLoading: () => ({ type: LOAD_ALL_NOTES }), // this is a fn returning an Action object (i.e. action creator)
+  dispatchLoadNotes,
   dispatchRemoveNote,
 };
 
@@ -38,13 +37,13 @@ const AllNotes: React.FC<ReduxProps> = ({
   notes,
   visibility,
   loading,
-  setLoading,
   removeNote,
   updateVisibility,
+  dispatchLoadNotes,
   dispatchRemoveNote,
 }) => {
   useEffect(() => {
-    setLoading();
+    dispatchLoadNotes();
   }, []);
 
   const tagValues = Object.values(TagValues);

@@ -3,7 +3,7 @@ import { Note } from "./redux/actions";
 // change this to handle baseURl when in heroku
 const baseURl = "http://localhost:3000/";
 
-export const getAllNotes = async () => {
+export const getAllNotesAPI = async () => {
   try {
     const result = await fetch(baseURl + "api/notes");
     return await result.json();
@@ -12,7 +12,7 @@ export const getAllNotes = async () => {
   }
 };
 
-export const addNote = async (note: Omit<Note, "id">) => {
+export const addNoteAPI = async (note: Omit<Note, "id">) => {
   const response = await fetch(baseURl + "api/notes", {
     method: "POST",
     headers: {
@@ -23,7 +23,7 @@ export const addNote = async (note: Omit<Note, "id">) => {
   return response.json();
 };
 
-export const removeNote = async (id: Note["id"]) => {
+export const removeNoteAPI = async (id: Note["id"]) => {
   try {
     const response = await fetch(baseURl + `api/notes/${id}`, { method: "DELETE" });
     return response.json();

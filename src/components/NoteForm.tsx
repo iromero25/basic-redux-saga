@@ -6,19 +6,11 @@ const mapDispatchToProps = {
   dispatchAddNote,
 };
 
-// `connect` is a Higher Order Component (Function?). So it returns a  function
-// that in turn, takes another Component as parameter. A HOC is a pure function.
 const connector = connect(
-  null, // mapStateToProps is null, we don’t care about what’s in the store
+  null,
   mapDispatchToProps
 );
 
-// Instead of doing this:
-// interface Props {
-//   addNote: (title: string, content: string, tag: TagValues) => AddNoteAction;
-// }
-
-// We can do this:
 type ReduxProps = ConnectedProps<typeof connector>;
 
 const NoteForm: React.FC<ReduxProps> = ({ dispatchAddNote }) => {

@@ -3,19 +3,19 @@
     {
       "title": "Supermarket",
       "content": "Don't forget to go to the supermarket and buy some fruit",
-      "tag": "priority",
+      "tag": "Priority",
       "id": 1
     },
     {
       "title": "Cleaning",
       "content": "We have to do vacuum the floor",
-      "tag": "archived",
+      "tag": "Archived",
       "id": 2
     },
     {
       "title": "Cooking",
       "content": "We might want to cook some salmon for tonight",
-      "tag": "normal",
+      "tag": "Normal",
       "id": 3
     },
     {
@@ -23,12 +23,6 @@
       "content": "Get gotta wash those socks",
       "tag": "Priority",
       "id": 4
-    },
-    {
-      "title": "Toilet",
-      "content": "We should do something with those windows",
-      "tag": "Normal",
-      "id": 5
     }
   ]
 }

@@ -18,8 +18,9 @@ server.use("/api", (_, __, next) => {
 });
 
 server.use("/api", jsonServer.router("json-server/db.json"));
-server.listen(process.env.PORT || 3000, () =>
-  console.log(`listening on port ${process.env.PORT || 3000}`)
-);
+server.listen(process.env.PORT || 3000, () => {
+  console.log(`listening on port ${process.env.PORT || 3000}`);
+  console.log(`client's base url is ${process.env.BASE_URL || "localhost"}`);
+});
 
 // to do: mock some delay for dealing with requests!

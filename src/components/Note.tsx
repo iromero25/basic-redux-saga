@@ -1,16 +1,16 @@
 import React from "react";
-import { Note, dispatchRemoveNote, removeNote } from "../redux/actions";
+import { Note, removeNoteSagaAction, removeNote } from "../redux/actions";
 
 interface Props {
   note: Note;
   removeNote: typeof removeNote;
-  dispatchRemoveNote: typeof dispatchRemoveNote;
+  removeNoteSagaAction: typeof removeNoteSagaAction;
 }
 
 const NoteComponent: React.FC<Props> = ({
   note,
   removeNote,
-  dispatchRemoveNote,
+  removeNoteSagaAction,
 }) => (
   <>
     <b>{note.title}</b>
@@ -20,7 +20,7 @@ const NoteComponent: React.FC<Props> = ({
         // away while also dispatching the asynchronous delete of the note from the db,
         // hoping the op will be executed successfully at a later time.
         removeNote(note.id);
-        dispatchRemoveNote(note.id);
+        removeNoteSagaAction(note.id);
       }}
       style={{ marginLeft: 5 }}
     >

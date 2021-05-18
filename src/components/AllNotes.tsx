@@ -5,8 +5,8 @@ import Note from "./Note";
 import {
   TagValues,
   removeNote,
-  dispatchLoadNotes,
-  dispatchRemoveNote,
+  loadNotesSagaAction,
+  removeNoteSagaAction,
   updateVisibility,
 } from "../redux/actions";
 
@@ -23,8 +23,8 @@ const mapStateToProps = (state: Store) => ({
 const mapDispatchToProps = {
   removeNote,
   updateVisibility,
-  dispatchLoadNotes,
-  dispatchRemoveNote,
+  loadNotesSagaAction,
+  removeNoteSagaAction,
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
@@ -39,11 +39,11 @@ const AllNotes: React.FC<ReduxProps> = ({
   loading,
   removeNote,
   updateVisibility,
-  dispatchLoadNotes,
-  dispatchRemoveNote,
+  loadNotesSagaAction,
+  removeNoteSagaAction,
 }) => {
   useEffect(() => {
-    dispatchLoadNotes();
+    loadNotesSagaAction();
   }, []);
 
   const tagValues = Object.values(TagValues);
@@ -65,7 +65,7 @@ const AllNotes: React.FC<ReduxProps> = ({
                 <Note
                   note={note}
                   removeNote={removeNote}
-                  dispatchRemoveNote={dispatchRemoveNote}
+                  removeNoteSagaAction={removeNoteSagaAction}
                 />
               </li>
             ))}

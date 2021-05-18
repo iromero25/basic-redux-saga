@@ -1,40 +1,40 @@
 import { Action } from "redux";
 import { Note } from "./actionCreators";
 import {
-  ADD_NOTE_DISPATCH,
-  REMOVE_NOTE_DISPATCH,
-  LOAD_NOTES_DISPATCH,
+  ADD_NOTE_SAGA_ACTION,
+  REMOVE_NOTE_SAGA_ACTION,
+  LOAD_NOTES_SAGA_ACTION,
 } from "./actionTypes";
 
 // action creators for  actions that are  dispatched  via
 // `mapDispatchToProps` and that are listened to by sagas
 
-export interface DispatchLoadNotesAction
-  extends Action<typeof LOAD_NOTES_DISPATCH> {}
+export interface LoadNotesSagaAction
+  extends Action<typeof LOAD_NOTES_SAGA_ACTION> {}
 
-export interface DispatchAddNoteAction extends Action<typeof ADD_NOTE_DISPATCH> {
+export interface AddNoteSagaAction extends Action<typeof ADD_NOTE_SAGA_ACTION> {
   payload: {
     note: Omit<Note, "id">;
   };
 }
 
-export interface DispatchRemoveNoteAction
-  extends Action<typeof REMOVE_NOTE_DISPATCH> {
+export interface RemoveNoteSagaAction
+  extends Action<typeof REMOVE_NOTE_SAGA_ACTION> {
   payload: {
     id: Note["id"];
   };
 }
 
-export const dispatchLoadNotes = (): DispatchLoadNotesAction => ({
-  type: LOAD_NOTES_DISPATCH,
+export const loadNotesSagaAction = (): LoadNotesSagaAction => ({
+  type: LOAD_NOTES_SAGA_ACTION,
 });
 
-export const dispatchAddNote = (note: Omit<Note, "id">): DispatchAddNoteAction => ({
-  type: ADD_NOTE_DISPATCH,
+export const addNoteSagaAction = (note: Omit<Note, "id">): AddNoteSagaAction => ({
+  type: ADD_NOTE_SAGA_ACTION,
   payload: { note },
 });
 
-export const dispatchRemoveNote = (id: Note["id"]): DispatchRemoveNoteAction => ({
-  type: REMOVE_NOTE_DISPATCH,
+export const removeNoteSagaAction = (id: Note["id"]): RemoveNoteSagaAction => ({
+  type: REMOVE_NOTE_SAGA_ACTION,
   payload: { id },
 });

@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import { connect, ConnectedProps } from "react-redux";
 import { Store } from "../redux/store/store";
-import { dispatchAddNote, TagValues } from "../redux/actions";
+import { addNoteSagaAction, TagValues } from "../redux/actions";
 import { isEmpty } from "lodash";
 import InputMissingError from "./InputMissingError";
 
@@ -10,14 +10,14 @@ const mapStateToProps = (state: Store) => ({
 });
 
 const mapDispatchToProps = {
-  dispatchAddNote,
+  addNoteSagaAction,
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
 
 type ReduxProps = ConnectedProps<typeof connector>;
 
-const NoteForm: React.FC<ReduxProps> = ({ loading, dispatchAddNote }) => {
+const NoteForm: React.FC<ReduxProps> = ({ loading, addNoteSagaAction }) => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [tag, setTag] = useState<TagValues>(TagValues.normal);
@@ -37,7 +37,7 @@ const NoteForm: React.FC<ReduxProps> = ({ loading, dispatchAddNote }) => {
       setInputInfoIsMissing(true);
       return;
     }
-    dispatchAddNote({ title, content, tag });
+    addNoteSagaAction({ title, content, tag });
     setTitle("");
     setContent("");
     setInputInfoIsMissing(false);

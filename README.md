@@ -25,8 +25,9 @@ The main purpose of this app is to have a working example of sagas. I might be r
 * Sagas is a Redux middleware
 * Sagas are written using ES6 *Generators* and as a result, provide powerful and elegant solutions that deal with asynchronous operations
 * Since it is middleware, it sits in between an action and a reducer. Therefore, there are actions that are specifically handled by sagas.
-* The Sagas library provide some useful effects for sgas manipulation. Some examples are *put*, *call* and *takeAll*.
-* The *put* effect is particularly useful because that's the way a saga *dispatches* an action (possiblt via an action creator as well) that can potentially be processed by Redux's reducers as expected.
+* The Sagas library provide some useful effects for saga manipulation. Some examples are *put*, *call* and *takeAll*.
+* The *put* effect is particularly useful because that's the way a saga *dispatches* an action (possibly via an action creator as well) that can potentially be processed by Redux's reducers as expected.
+* The *call* effect is simply used to call a function. This is normally used along the `yield` keyword to execute api calls. When yield is used in a generator, the execution is paused until *call* returns data.
 
 In this app, I am addigng the *SagaAction* prefix fo those actions that are listened by sagas, for clarity. You can see those at the [sagaActionCreators.ts](./src/redux/actions/sagasActionCreators.ts) file.
 

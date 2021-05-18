@@ -20,3 +20,6 @@ as the preferred way to handle asynchronous AJAX requests. Sagas are meant to be
 ## server
 The `json-server` library is used as fake server that nevertheless allows us to execute HTTP Requests to our local server. This will help us with teh executing of the several asynchrounous side-effects that are the essence of this app.
 
+## NPM Registry and Library dependencies
+As a reminder, library dependencies were all install using NPM's public repository using
+`YARN_REGISTRY=https://registry.npmjs.org yarn install`

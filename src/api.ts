@@ -6,7 +6,6 @@ const baseURl = process.env.NODE_ENV ? production : development;
 
 export const getAllNotesAPI = async () => {
   try {
-    console.log(baseURl + "/api/notes");
     const result = await fetch(baseURl + "/api/notes");
     return await result.json();
   } catch (e) {

@@ -46,3 +46,6 @@ The `json-server` library is used as fake server that nevertheless allows us to 
 ## NPM Registry and Library dependencies
 As a reminder, library dependencies were all install using NPM's public repository using
 `YARN_REGISTRY=https://registry.npmjs.org yarn install`
+
+## environment variables
+There's a great articule to read regarding handling environment variables in React worth reading: https://trekinbami.medium.com/using-environment-variables-in-react-6b0a99d83cf5

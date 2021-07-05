@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { connect, ConnectedProps } from "react-redux";
 import { Store } from "../redux/store/store";
 import { addNoteSagaAction, TagValues } from "../redux/actions";
@@ -20,10 +20,14 @@ type ReduxProps = ConnectedProps<typeof connector>;
 const NoteForm: React.FC<ReduxProps> = ({ loading, addNoteSagaAction }) => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const [tag, setTag] = useState<TagValues>(TagValues.normal);
   const [inputInfoIsMissing, setInputInfoIsMissing] = useState(false);
   const titleRef = useRef<HTMLInputElement>(null);
+  const tagSelectRef = useRef<HTMLSelectElement>(null);
   const elementWidth = 160;
+
+  useEffect(() => {
+    titleRef.current?.focus();
+  }, []);
 
   // interface Event {
   //   preventDefault: () => void;
@@ -37,12 +41,14 @@ const NoteForm: React.FC<ReduxProps> = ({ loading, addNoteSagaAction }) => {
       setInputInfoIsMissing(true);
       return;
     }
+    const tag = tagSelectRef.current?.value ?? TagValues.normal;
     addNoteSagaAction({ title, content, tag });
     setTitle("");
     setContent("");
     setInputInfoIsMissing(false);
 
     // set focus to the Input DOM element this reference points at
+    console.log(tagSelectRef);
     titleRef.current?.focus();
   };
 
@@ -72,14 +78,9 @@ const NoteForm: React.FC<ReduxProps> = ({ loading, addNoteSagaAction }) => {
           onChange={e => setContent(e.target.value)}
         ></textarea>
         <br />
-        <div style={{marginBottom: -5}}>
+        <div style={{ marginBottom: -5 }}>
           <label htmlFor="tags">Tag:</label>
-          <select
-            name="tag"
-            id="tags"
-            onChange={e => setTag(e.target.value as TagValues)}
-            style={{ marginLeft: 5 }}
-          >
+          <select name="tag" ref={tagSelectRef} id="tags" style={{ marginLeft: 5 }}>
             {tagValues.map((tag, index) => (
               <option key={index} value={tag}>
                 {tag}
@@ -88,11 +89,7 @@ const NoteForm: React.FC<ReduxProps> = ({ loading, addNoteSagaAction }) => {
           </select>
         </div>
         <br />
-        <button
-          type="submit"
-          disabled={loading}
-          style={{ marginBottom: 5 }}
-        >
+        <button type="submit" disabled={loading} style={{ marginBottom: 5 }}>
           Add Note
         </button>
         {inputInfoIsMissing && <InputMissingError />}

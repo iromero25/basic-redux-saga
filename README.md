@@ -42,6 +42,12 @@ As an example I am ilustrating the how the `loadNotesSagaAction` is processed in
    1. Dispatches the `setAllNotes` action passing all the retrieved notes from the database to theys can be processed by the reducer and thus added to the `notes` part of the store.
 1. As a result of the previous actions, the store is updated with all notes and since the `AllNotes` component is mapping notes to props (it is connected to the store), it updates it's part of of the DOM to show the notes on the UI.
 
+## The dispatch action creator
+
+The [dispatchActionCreator](./src/utils/dispatchActionCreator.ts) is a typed function whose only purpose (as its name implies) is to wrap an action creator. This function is meant to be used when creating the function-version of `mapDispatchToProps` that receives the `dispatch` function as parameter.
+
+By using the `dispatchActionCreator` to wrap each action creator in `mpaDispatchToProps`, we return the expected map/object of functions each dispatching an action creator whose (function) parameters are rightly typed in accordance to the Dispatcher ActionCreator types. See the notes at the [dispatchActionCreator](./src/utls/dispatchActionCreator.ts) file and the [AlNotesConnector](./src/components/AllNotesConnector.ts) connector component for a more detailed explanation.
+
 ## Front-end testing
 
 I am adding some testing to assert the DOM is modified in the way I expect. My expectation is to ensure the DOM is updated as a result of triggering an action and Redux acting accordingly. I am using React's version of the `Testing Library` library.
@@ -50,7 +56,7 @@ As per the description above, we can think of my tests as some sort of integrati
 
 The test I have added so far:
 
-- [addNoteActionSpy.test.tsx](/.src/redux/actions/addNoteActionSpy.test.tsx) is a simple example on how to spy an action creator that is dispatched through `mapStateToProps`. Refer to the notes I have added in the code for more detailed info.
+- [addNoteActionSpy.test.tsx](./src/redux/actions/addNoteActionSpy.test.tsx) is a simple example on how to spy an action creator that is dispatched through `mapStateToProps`. Refer to the notes I have added in the code for more detailed info.
 
 ## server
 

@@ -1,34 +1,10 @@
 import React, { useEffect } from "react";
-import { connect, ConnectedProps } from "react-redux";
-import { Store } from "../redux/store/store";
-import Note from "./Note";
-import {
-  TagValues,
-  removeNote,
-  loadNotesSagaAction,
-  removeNoteSagaAction,
-  updateVisibility,
-} from "../redux/actions";
+import { ConnectedProps } from "react-redux";
+import { TagValues } from "../redux/actions";
+import Note from "../components/Note";
+import AllNotesConnector from "./AllNotesConnector";
 
-const mapStateToProps = (state: Store) => ({
-  notes: state.notes,
-  visibility: state.visibility,
-  loading: state.loading,
-});
-
-// `mapDispatchToProps` could be a function that receives the `dispatch` fn
-// as parameter but the docs say it's no longer required; specify an object
-// mapping attrs to functions (action creators) instead.
-// Extra benefit: we don't have to type the dispatch function.
-const mapDispatchToProps = {
-  removeNote,
-  updateVisibility,
-  loadNotesSagaAction,
-  removeNoteSagaAction,
-};
-
-const connector = connect(mapStateToProps, mapDispatchToProps);
-type ReduxProps = ConnectedProps<typeof connector>;
+type ReduxProps = ConnectedProps<typeof AllNotesConnector>;
 
 // We are mapping state (and dispatch) to props and thus we don't need
 // to pass any props down from this component's parent,  but we  still
@@ -89,4 +65,4 @@ const AllNotes: React.FC<ReduxProps> = ({
   );
 };
 
-export default connector(AllNotes);
+export default AllNotesConnector(AllNotes);

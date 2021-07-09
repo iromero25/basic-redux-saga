@@ -35,6 +35,19 @@ const AllNotes: React.FC<ReduxProps> = ({
         <span>Loading...</span>
       ) : (
         <>
+          <div>
+            <h4>Filter notes by</h4>
+            <select
+              name="tag"
+              onChange={e => updateVisibility(e.target.value as TagValues)}
+            >
+              {tagValues.map((tag, index) => (
+                <option key={index} value={tag}>
+                  {tag}
+                </option>
+              ))}
+            </select>
+          </div>      
           <ul>
             {notesToDisplay.map((note, index) => (
               <li key={index} style={{ marginBottom: 8 }}>
@@ -46,19 +59,6 @@ const AllNotes: React.FC<ReduxProps> = ({
               </li>
             ))}
           </ul>
-          <div>
-            <h3>Filter notes</h3>
-            <select
-              name="tag"
-              onChange={e => updateVisibility(e.target.value as TagValues)}
-            >
-              {tagValues.map((tag, index) => (
-                <option key={index} value={tag}>
-                  {tag}
-                </option>
-              ))}
-            </select>
-          </div>
         </>
       )}
     </>

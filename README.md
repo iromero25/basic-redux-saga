@@ -57,6 +57,7 @@ As per the description above, we can think of my tests as some sort of integrati
 The test I have added so far:
 
 - [addNoteActionSpy.test.tsx](./src/redux/actions/addNoteActionSpy.test.tsx) is a simple example on how to spy an action creator that is dispatched through `mapStateToProps`. Refer to the notes I have added in the code for more detailed info.
+- [AllNotes.test.tsx](./src/components/AllNotes.test.tsx) also spies on the `loadNotesSagaAction` defined through `mapDispatchToProps` to check that it is being dispatched as soon as the `AllNotes` component is rendered as that saga is triggered as part of its `useEffect` hook. However, the big difference is that we are mocking the `getAllNotesAPI` api fetch that is executed as a side effect of the saga and check that the DOM reflects the note that we provide as part of that mocked fetch. This is a simple yet powerful test as it is full integration example of how to test a saga.
 
 ## server
 

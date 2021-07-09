@@ -9,8 +9,7 @@ import {
 // action creators for  actions that are  dispatched  via
 // `mapDispatchToProps` and that are listened to by sagas
 
-export interface LoadNotesSagaAction
-  extends Action<typeof LOAD_NOTES_SAGA_ACTION> {}
+export interface LoadNotesSagaAction extends Action<typeof LOAD_NOTES_SAGA_ACTION> {}
 
 export interface AddNoteSagaAction extends Action<typeof ADD_NOTE_SAGA_ACTION> {
   payload: {

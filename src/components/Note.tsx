@@ -1,10 +1,11 @@
 import React from "react";
-import { Note, removeNoteSagaAction, removeNote } from "../redux/actions";
+import { ReduxProps as AllNotesProps } from "./AllNotes";
+import { Note } from "../redux/actions";
 
 interface Props {
   note: Note;
-  removeNote: typeof removeNote;
-  removeNoteSagaAction: typeof removeNoteSagaAction;
+  removeNote: AllNotesProps["removeNote"];
+  removeNoteSagaAction: AllNotesProps["removeNoteSagaAction"];
 }
 
 const NoteComponent: React.FC<Props> = ({

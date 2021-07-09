@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { Dispatch, useEffect } from "react";
 import store, { Store } from "../store/store";
 import { Provider, connect } from "react-redux";
 import { fireEvent, render } from "@testing-library/react";
@@ -32,7 +32,7 @@ const mapStateToProps = (state: Store) => ({
 // IMPORTANT: the  methods passed through `mapDispatchToProps` cannot be spied upon/mocked if they
 // are defined using the object version of  `mapDispatch...`. We have to use the function  version
 // that receives `dispatch` and use it  to trigger  the actions for  our tests to work as expected.
-const mapDispatchToProps = (dispatch: any) => ({
+const mapDispatchToProps = (dispatch: Dispatch<actionCreators.AddNoteAction>) => ({
   addNote: (noteToAdd: Note) => dispatch(addNote(noteToAdd)),
 });
 
@@ -54,9 +54,12 @@ const ButtonComponent: React.FC<{
   );
 };
 
-const ConnectedComp = connect(mapStateToProps, mapDispatchToProps)(ButtonComponent);
+const ConnectedButton = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ButtonComponent);
 
-test("DOM updated as `addNote` is triferred at useEffect and button click", async () => {
+test("DOM updated as `addNote` is triggered at useEffect and button click", async () => {
   const spy = jest.spyOn(actionCreators, "addNote");
   // here we can potentially add a mocked implementation like this:
   // .mockImplementation(() => {
@@ -66,12 +69,12 @@ test("DOM updated as `addNote` is triferred at useEffect and button click", asyn
 
   const { getByText, queryByText } = render(
     <Wrapper>
-      <ConnectedComp />
+      <ConnectedButton />
     </Wrapper>
   );
 
   // I expect `addNote` to have been called immediately as it is triggered by `useEffect`
-  expect(spy).toHaveBeenCalled();
+  expect(spy).toHaveBeenCalledTimes(1);
 
   // the first dummy note should be in the DOM, but not the second dummy note
   const firstDummyNote = getByText(notesBucket[0].title);

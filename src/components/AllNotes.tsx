@@ -4,7 +4,7 @@ import { TagValues } from "../redux/actions";
 import Note from "../components/Note";
 import AllNotesConnector from "./AllNotesConnector";
 
-type ReduxProps = ConnectedProps<typeof AllNotesConnector>;
+export type ReduxProps = ConnectedProps<typeof AllNotesConnector>;
 
 // We are mapping state (and dispatch) to props and thus we don't need
 // to pass any props down from this component's parent,  but we  still
